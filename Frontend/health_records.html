@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Smart Health Records</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- ================= LOGIN CHECK ================= -->
+<script>
+const user = JSON.parse(localStorage.getItem("healnova_user"));
+if (!user) {
+  alert("Please login to access Health Records");
+  window.location.href = "login.html";
+}
+</script>
+
+<!-- ================= NAVBAR ================= -->
+<div id="nav"></div>
+
+<div class="records-container">
+
+  <h2 class="page-title">
+    <img src="images/icons/records.svg" class="title-icon">
+    Health Records
+  </h2>
+
+  <!-- DISCLAIMER -->
+  <div class="records-note">
+    ⚠️ Educational Use Only.  
+    Records are stored locally in your browser and are not encrypted.
+    Do NOT upload real medical data.
+  </div>
+
+  <!-- ================= SUMMARY ================= -->
+  <div class="section-box summary-box">
+    <h3>📊 Health Summary</h3>
+    <p><b>Last Disease:</b> <span id="lastDisease">-</span></p>
+    <p><b>Last Test:</b> <span id="lastTest">-</span></p>
+    <p><b>Last Medicine:</b> <span id="lastMedicine">-</span></p>
+  </div>
+
+  <!-- ================= DISEASE HISTORY ================= -->
+  <h3>🦠 Disease History</h3>
+  <div class="section-box" id="recordsContainer"></div>
+
+  <!-- ================= TEST REPORTS ================= -->
+  <h3>🧪 Test Reports</h3>
+  <div class="section-box">
+    <input id="testName" placeholder="Test name (BP, Sugar)">
+    <input id="testValue" placeholder="Value (120/80)">
+    <input type="file" id="testFile" accept="image/*,.pdf">
+    <br><br>
+    <button class="action-btn btn-add" onclick="saveTest()">Add Test</button>
+    <div id="testReportContainer"></div>
+  </div>
+
+  <!-- ================= MEDICINES ================= -->
+  <h3>💊 Medicine History</h3>
+  <div class="section-box">
+    <input id="medName" placeholder="Medicine name">
+    <input id="medDuration" placeholder="Duration (3 days)">
+    <input id="medNotes" placeholder="Notes (optional)">
+    <br><br>
+    <button class="action-btn btn-add" onclick="saveMedicine()">Add Medicine</button>
+    <div id="medicineContainer"></div>
+  </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+/* ================= NAV & FOOTER LOAD ================= */
+fetch("navbar.html")
+  .then(r => r.text())
+  .then(h => {
+    document.getElementById("nav").innerHTML = h;
+    initNavbarAuth();
+  });
+
+fetch("footer.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("footer").innerHTML = h);
+</script>
+
+<script>
+/* ================= USER-SCOPED STORAGE ================= */
+const userKey = user.email.replace(/[^a-zA-Z0-9]/g, "_");
+
+const KEYS = {
+  diseases: `healthRecords_${userKey}`,
+  tests: `testReports_${userKey}`,
+  meds: `medicineHistory_${userKey}`
+};
+
+/* ================= DISEASE HISTORY ================= */
+function loadRecords() {
+  const c = document.getElementById("recordsContainer");
+  const arr = JSON.parse(localStorage.getItem(KEYS.diseases)) || [];
+
+  if (!arr.length) {
+    c.innerHTML = "<p class='empty'>No disease records.</p>";
+    return;
+  }
+
+  let html = `<table>
+    <tr>
+      <th>Date</th><th>Disease</th><th>Type</th><th>Specialist</th><th>Action</th>
+    </tr>`;
+
+  arr.forEach((r, i) => {
+    html += `<tr>
+      <td>${r.date}</td>
+      <td>${r.disease}</td>
+      <td>${r.type}</td>
+      <td>${r.specialist}</td>
+      <td>
+        <button class="action-btn btn-del" onclick="deleteDisease(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+
+  html += "</table>";
+  c.innerHTML = html;
+}
+
+function deleteDisease(i) {
+  let arr = JSON.parse(localStorage.getItem(KEYS.diseases)) || [];
+  arr.splice(i, 1);
+  localStorage.setItem(KEYS.diseases, JSON.stringify(arr));
+  loadRecords();
+  loadSummary();
+}
+
+/* ================= TEST REPORTS ================= */
+function saveTest() {
+  const name = testName.value.trim();
+  const value = testValue.value.trim();
+  const file = testFile.files[0];
+
+  if (!name || !value) return alert("Enter test name and value.");
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const arr = JSON.parse(localStorage.getItem(KEYS.tests)) || [];
+    arr.push({
+      date: new Date().toLocaleDateString(),
+      test: name,
+      value,
+      fileData: reader.result || ""
+    });
+    localStorage.setItem(KEYS.tests, JSON.stringify(arr));
+    testName.value = testValue.value = testFile.value = "";
+    loadTestReports();
+    loadSummary();
+  };
+
+  file ? reader.readAsDataURL(file) : reader.onload();
+}
+
+function loadTestReports() {
+  const c = document.getElementById("testReportContainer");
+  const arr = JSON.parse(localStorage.getItem(KEYS.tests)) || [];
+
+  if (!arr.length) {
+    c.innerHTML = "<p class='empty'>No test reports.</p>";
+    return;
+  }
+
+  let html = `<table>
+    <tr><th>Date</th><th>Test</th><th>Value</th><th>Report</th><th>Action</th></tr>`;
+
+  arr.forEach((r, i) => {
+    html += `<tr>
+      <td>${r.date}</td>
+      <td>${r.test}</td>
+      <td>${r.value}</td>
+      <td>${r.fileData ? `<a href="${r.fileData}" target="_blank">View</a>` : "-"}</td>
+      <td>
+        <button class="action-btn btn-del" onclick="deleteTest(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+
+  html += "</table>";
+  c.innerHTML = html;
+}
+
+function deleteTest(i) {
+  let arr = JSON.parse(localStorage.getItem(KEYS.tests)) || [];
+  arr.splice(i, 1);
+  localStorage.setItem(KEYS.tests, JSON.stringify(arr));
+  loadTestReports();
+  loadSummary();
+}
+
+/* ================= MEDICINES ================= */
+function saveMedicine() {
+  const name = medName.value.trim();
+  const duration = medDuration.value.trim();
+
+  if (!name || !duration) return alert("Enter medicine name and duration.");
+
+  const arr = JSON.parse(localStorage.getItem(KEYS.meds)) || [];
+  arr.push({
+    date: new Date().toLocaleDateString(),
+    name,
+    duration,
+    notes: medNotes.value.trim()
+  });
+  localStorage.setItem(KEYS.meds, JSON.stringify(arr));
+
+  medName.value = medDuration.value = medNotes.value = "";
+  loadMedicines();
+  loadSummary();
+}
+
+function loadMedicines() {
+  const c = document.getElementById("medicineContainer");
+  const arr = JSON.parse(localStorage.getItem(KEYS.meds)) || [];
+
+  if (!arr.length) {
+    c.innerHTML = "<p class='empty'>No medicines.</p>";
+    return;
+  }
+
+  let html = `<table>
+    <tr><th>Date</th><th>Medicine</th><th>Duration</th><th>Notes</th><th>Action</th></tr>`;
+
+  arr.forEach((m, i) => {
+    html += `<tr>
+      <td>${m.date}</td>
+      <td>${m.name}</td>
+      <td>${m.duration}</td>
+      <td>${m.notes || "-"}</td>
+      <td>
+        <button class="action-btn btn-del" onclick="deleteMedicine(${i})">Delete</button>
+      </td>
+    </tr>`;
+  });
+
+  html += "</table>";
+  c.innerHTML = html;
+}
+
+function deleteMedicine(i) {
+  let arr = JSON.parse(localStorage.getItem(KEYS.meds)) || [];
+  arr.splice(i, 1);
+  localStorage.setItem(KEYS.meds, JSON.stringify(arr));
+  loadMedicines();
+  loadSummary();
+}
+
+/* ================= SUMMARY ================= */
+function loadSummary() {
+  const r = JSON.parse(localStorage.getItem(KEYS.diseases)) || [];
+  const t = JSON.parse(localStorage.getItem(KEYS.tests)) || [];
+  const m = JSON.parse(localStorage.getItem(KEYS.meds)) || [];
+
+  lastDisease.innerText = r.length ? r.at(-1).disease : "-";
+  lastTest.innerText = t.length ? `${t.at(-1).test}: ${t.at(-1).value}` : "-";
+  lastMedicine.innerText = m.length ? m.at(-1).name : "-";
+}
+
+/* ================= INIT ================= */
+loadRecords();
+loadTestReports();
+loadMedicines();
+loadSummary();
+</script>
+
+</body>
+</html>

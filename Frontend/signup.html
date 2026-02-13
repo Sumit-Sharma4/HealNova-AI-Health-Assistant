@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup – HeaLNova</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<div id="nav"></div>
+
+<div class="auth-container">
+  <h2>📝 Create HeaLNova Account</h2>
+
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="signup()">Sign Up</button>
+
+  <div class="auth-link">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+</div>
+
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+fetch("navbar.html").then(r=>r.text()).then(h=>nav.innerHTML=h);
+fetch("footer.html").then(r=>r.text()).then(h=>footer.innerHTML=h);
+
+function signup() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!name || !email || !password) {
+    alert("All fields are required");
+    return;
+  }
+
+  fetch("http://127.0.0.1:5000/signup", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ name, email, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+    } else {
+      alert("✅ Signup successful! Please login.");
+      window.location.href = "login.html";
+    }
+  });
+}
+</script>
+
+</body>
+</html>

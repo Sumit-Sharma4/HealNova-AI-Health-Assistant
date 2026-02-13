@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Terms of Use</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- 🔵 NAVBAR -->
+<div id="nav"></div>
+<script>
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("nav").innerHTML = html);
+</script>
+
+<!-- 📜 TERMS CONTENT -->
+<div style="
+  max-width:900px;
+  margin:40px auto;
+  background:#ffffff;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+  font-family:Arial, sans-serif;
+">
+
+  <h2 style="color:#0b5ed7;">📜 Terms of Use</h2>
+
+  <p>
+    Welcome to <b>HeaLNova</b>.  
+    By using this website, you agree to the following terms and conditions.
+  </p>
+
+  <h3>1️⃣ Purpose of HeaLNova</h3>
+  <p>
+    HeaLNova is a <b>health awareness platform</b> designed to provide
+    general information about diseases, symptoms, and health topics.
+  </p>
+
+  <h3>2️⃣ No Medical Advice</h3>
+  <ul>
+    <li>HeaLNova is <b>NOT a medical professional</b>.</li>
+    <li>AI Doctor does <b>NOT diagnose diseases</b>.</li>
+    <li>No medicine dosage is prescribed.</li>
+    <li>Always consult a <b>certified doctor</b> for treatment.</li>
+  </ul>
+
+  <h3>3️⃣ Use of AI Doctor</h3>
+  <ul>
+    <li>AI responses are generated for awareness only.</li>
+    <li>Information may not be 100% accurate.</li>
+    <li>Users should not depend solely on AI for health decisions.</li>
+  </ul>
+
+  <h3>4️⃣ User Responsibility</h3>
+  <ul>
+    <li>You use this website at your own risk.</li>
+    <li>You agree not to misuse the platform.</li>
+    <li>You should not upload false or harmful information.</li>
+  </ul>
+
+  <h3>5️⃣ Emergency Situations</h3>
+  <p>
+    In case of medical emergency, <b>contact local emergency services immediately</b>.
+    HeaLNova emergency guidance is only for first-level awareness.
+  </p>
+
+  <h3>6️⃣ Changes to Terms</h3>
+  <p>
+    HeaLNova may update these terms at any time without prior notice.
+  </p>
+
+  <p style="margin-top:25px; color:#b00020; font-size:14px;">
+    ⚠ By continuing to use HeaLNova, you agree to all the above terms.
+  </p>
+
+</div>
+
+<!-- 🔻 FOOTER -->
+<div id="footer"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+</body>
+</html>

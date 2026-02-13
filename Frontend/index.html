@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>HeaLNova – Smart Health Assistant</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- 🔵 NAVBAR -->
+<div id="nav"></div>
+
+<!-- 🦸 HERO SECTION -->
+<section class="hero">
+  <div class="hero-center">
+    <h1>Your Smart Health Companion</h1>
+    <p>
+      Predict diseases, understand symptoms, explore health conditions,
+      and get AI-powered guidance — All in one place.
+    </p>
+    <button onclick="goPredict()">Start Health Check</button>
+  </div>
+</section>
+
+<!-- 🧩 FEATURES -->
+<section class="features">
+
+  <div class="feature-card">
+  <div class="feature-icon">
+    <img src="images/icons/predict.svg" alt="Disease Prediction">
+  </div>
+  <h3>Disease Prediction</h3>
+  <p>Predict possible diseases based on symptoms.</p>
+  <button onclick="goPredict()">Start Prediction</button>
+</div>
+
+ <div class="feature-card">
+  <div class="feature-icon">
+    <img src="images/icons/explorer.svg" alt="Disease Explorer">
+  </div>
+  <h3>Disease Explorer</h3>
+  <p>Search diseases with causes, symptoms & remedies.</p>
+  <button onclick="goExplorer()">Explore Diseases</button>
+</div>
+
+
+  <div class="feature-card">
+  <div class="feature-icon">
+    <img src="images/icons/ai-doctor.svg" alt="AI Doctor">
+  </div>
+  <h3>AI Doctor</h3>
+  <p>Ask health questions in simple language.</p>
+  <button onclick="goAIDoctor()">Ask AI Doctor</button>
+</div>
+
+  <div class="feature-card">
+  <div class="feature-icon">
+    <img src="images/icons/emergency.svg" alt="Emergency Help">
+  </div>
+  <h3>Emergency Help</h3>
+  <p>Immediate health guidance.</p>
+  <button onclick="goEmergency()">Emergency</button>
+</div>
+
+
+  <div class="feature-card">
+  <div class="feature-icon">
+    <img src="images/icons/records.svg" alt="Health Records">
+    </div>
+    <h3>Health Records</h3>
+    <p>Store reports, medicines & health history.</p>
+    <button onclick="goRecords()">View Records</button>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();   
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+</body>
+</html>
+<script src="JS/ui.js"></script>

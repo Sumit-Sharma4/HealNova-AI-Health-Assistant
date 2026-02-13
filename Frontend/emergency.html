@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Emergency Help</title>
+  <link rel="stylesheet" href="CSS/style.css">
+
+  <style>
+    .emergency-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .emergency-title {
+      text-align: center;
+      color: #b00020;
+      margin-bottom: 10px;
+    }
+
+    .emergency-sub {
+      text-align: center;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 25px;
+    }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .emergency-btn {
+      padding: 18px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #e53935, #c62828);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .emergency-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
+
+    .emergency-content {
+      margin-top: 35px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+    }
+
+    .emergency-content h2 {
+      color: #b00020;
+      margin-bottom: 10px;
+    }
+
+    .emergency-content ul {
+      margin-left: 22px;
+    }
+
+    .emergency-call {
+      margin-top: 20px;
+      background: #1b5e20;
+      color: white;
+      padding: 15px;
+      font-size: 17px;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .emergency-alert {
+      margin-top: 15px;
+      padding: 14px;
+      background: #ffe5e5;
+      color: #b00020;
+      font-weight: bold;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .emergency-back {
+      margin-top: 25px;
+      background: #607d8b;
+      color: white;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+
+<div class="emergency-container">
+
+  <h1 class="emergency-title">🚨 Emergency Help</h1>
+  <p class="emergency-sub">
+    Select an emergency type for immediate first-aid guidance
+  </p>
+
+  <!-- BUTTONS -->
+  <div class="emergency-grid">
+    <button class="emergency-btn" onclick="showEmergency('heart')">❤️ Heart Emergency</button>
+    <button class="emergency-btn" onclick="showEmergency('breathing')">🫁 Breathing Problem</button>
+    <button class="emergency-btn" onclick="showEmergency('stroke')">🧠 Stroke</button>
+    <button class="emergency-btn" onclick="showEmergency('bleeding')">🩸 Severe Bleeding</button>
+    <button class="emergency-btn" onclick="showEmergency('fever')">🔥 High Fever / Heat Stroke</button>
+    <button class="emergency-btn" onclick="showEmergency('poison')">🤢 Food Poisoning</button>
+    <button class="emergency-btn" onclick="showEmergency('injury')">🤕 Accident / Injury</button>
+    <button class="emergency-btn" onclick="showEmergency('bite')">🐍 Bite / Sting</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content" class="emergency-content"></div>
+
+  <button class="emergency-back" onclick="goBack()">⬅ Back to Home</button>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script>
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();    
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+<script>
+function showEmergency(type) {
+  const c = document.getElementById("content");
+
+  const data = {
+    heart: `
+      <h2>❤️ Heart Emergency</h2>
+      <b>Danger Signs:</b>
+      <ul>
+        <li>Chest pain or pressure</li>
+        <li>Shortness of breath</li>
+        <li>Left arm or jaw pain</li>
+        <li>Cold sweating</li>
+      </ul>
+      <b>Immediate Action:</b>
+      <ul>
+        <li>Call ambulance immediately</li>
+        <li>Keep person calm and seated</li>
+        <li>Do NOT give food or water</li>
+      </ul>
+    `,
+    breathing: `
+      <h2>🫁 Breathing Problem</h2>
+      <ul>
+        <li>Difficulty breathing</li>
+        <li>Blue lips or fingers</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Sit upright</li>
+        <li>Loosen tight clothes</li>
+        <li>Call emergency help</li>
+      </ul>
+    `,
+    stroke: `
+      <h2>🧠 Stroke Warning</h2>
+      <ul>
+        <li>Face drooping</li>
+        <li>Arm weakness</li>
+        <li>Speech difficulty</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Call emergency immediately</li>
+        <li>Do NOT give food or water</li>
+      </ul>
+    `,
+    bleeding: `
+      <h2>🩸 Severe Bleeding</h2>
+      <ul>
+        <li>Heavy blood loss</li>
+        <li>Deep wound</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Apply firm pressure</li>
+        <li>Use clean cloth</li>
+        <li>Call emergency services</li>
+      </ul>
+    `,
+    fever: `
+      <h2>🔥 High Fever / Heat Stroke</h2>
+      <ul>
+        <li>Very high temperature</li>
+        <li>Dizziness or confusion</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Move to cool place</li>
+        <li>Give fluids if conscious</li>
+        <li>Seek medical help</li>
+      </ul>
+    `,
+    poison: `
+      <h2>🤢 Food Poisoning</h2>
+      <ul>
+        <li>Vomiting</li>
+        <li>Diarrhea</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Give ORS / fluids</li>
+        <li>Do NOT induce vomiting</li>
+        <li>Consult doctor urgently</li>
+      </ul>
+    `,
+    injury: `
+      <h2>🤕 Accident / Injury</h2>
+      <ul>
+        <li>Severe pain</li>
+        <li>Broken bone</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Immobilize injured area</li>
+        <li>Stop bleeding</li>
+        <li>Call emergency</li>
+      </ul>
+    `,
+    bite: `
+      <h2>🐍 Bite / Sting</h2>
+      <ul>
+        <li>Snake or animal bite</li>
+        <li>Swelling or pain</li>
+      </ul>
+      <b>Action:</b>
+      <ul>
+        <li>Keep person calm</li>
+        <li>Do NOT cut or suck wound</li>
+        <li>Reach hospital immediately</li>
+      </ul>
+    `
+  };
+
+  c.innerHTML = `
+    ${data[type]}
+    <div class="emergency-call">
+      ☎ India Emergency: 112 | Ambulance: 108
+    </div>
+    <div class="emergency-alert">
+      ⚠ Emergency guidance only. Immediate medical help is required.
+    </div>
+  `;
+}
+
+function goBack() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <!-- LOGO -->
+    <div class="nav-logo" onclick="goHome()">
+      <img src="images/healnova-logo.png" alt="HeaLNova Logo">
+      <span>HeaLNova</span>
+    </div>
+  </div>
+
+  <!-- HAMBURGER (MOBILE) -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <!-- MENU (LINKS + AUTH) -->
+  <ul class="nav-links" id="navMenu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="disease_predict.html">Predict</a></li>
+    <li><a href="disease_explorer.html">Diseases</a></li>
+    <li><a href="ai_doctor.html">AI Doctor</a></li>
+    <li><a href="health_records.html">Health Records</a></li>
+    <li>
+      <a href="emergency.html" class="emergency-btn">🚨 Emergency</a>
+    </li>
+
+    <!-- AUTH AREA (LOGIN / ACCOUNT) -->
+    <li id="navAuth"></li>
+  </ul>
+</nav>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About – HeaLNova</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+<script>
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("nav").innerHTML = html);
+</script>
+
+<!-- CONTENT -->
+<div class="card" style="max-width:900px; margin:40px auto;">
+
+  <h2 style="color:#0b5ed7;">About HeaLNova</h2>
+
+  <p>
+    <b>HeaLNova</b> is a smart healthcare assistance platform designed to help
+    users understand diseases, symptoms, and health information in a simple,
+    accessible, and responsible way.
+  </p>
+
+  <h3>🎯 Purpose</h3>
+  <ul>
+    <li>Provide disease awareness</li>
+    <li>Predict possible diseases using symptoms</li>
+    <li>Explain health topics in simple language</li>
+    <li>Maintain basic health records</li>
+  </ul>
+
+  <h3>⭐ Key Features</h3>
+  <ul>
+    <li>AI-based disease prediction</li>
+    <li>Offline disease information (CSV-based)</li>
+    <li>AI Doctor for health awareness</li>
+    <li>Smart health records</li>
+    <li>Emergency information access</li>
+  </ul>
+
+  <h3>⚠ Important Disclaimer</h3>
+  <p style="color:#b00020;">
+    HeaLNova does NOT provide medical diagnosis or treatment.
+    All information is for health awareness only.
+    Always consult a certified medical professional for treatment.
+  </p>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+<script>
+  fetch("footer.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Brain outline -->
+  <path d="M20 14
+           C14 14,10 18,10 24
+           C6 26,6 34,10 36
+           C10 42,16 46,22 44
+           M44 14
+           C50 14,54 18,54 24
+           C58 26,58 34,54 36
+           C54 42,48 46,42 44"
+        stroke="#0b5ed7"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Brain center line -->
+  <path d="M32 14V50"
+        stroke="#0b5ed7"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+  <!-- Pulse line -->
+  <path d="M18 32H24L27 26L31 38L35 30L38 32H46"
+        stroke="#198754"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+</svg>

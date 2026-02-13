@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – AI Doctor</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+
+<!-- AI DOCTOR -->
+<div class="ai-container">
+
+  <div class="ai-header">
+    <div class="title-wrapper">
+      <img src="images/icons/ai-doctor.svg" class="title-icon" alt="AI Doctor">
+      <h2>AI Doctor</h2>
+    </div>
+
+    <p id="aiSubText" class="ai-subtext">
+      Ask any health-related question for awareness and guidance.
+    </p>
+  </div>
+
+
+  <!-- Disease badge (hidden by default) -->
+  <div class="disease-badge" id="diseaseName" style="display:none;"></div>
+
+  <!-- TEXTAREA -->
+  <textarea
+    id="question"
+    class="ai-textarea"
+    rows="4"
+    placeholder="Example: What causes fever? | Home remedies for cough | When should I see a doctor?">
+  </textarea>
+
+  <!-- QUICK EXAMPLES (only when no disease context) -->
+  <div id="exampleBox" class="ai-examples">
+    <small><b>Try asking:</b></small><br>
+    <button onclick="fillQuestion('What causes fever?')">Fever causes</button>
+    <button onclick="fillQuestion('Home remedies for cough')">Cough remedies</button>
+    <button onclick="fillQuestion('When should I consult a doctor?')">Consult doctor</button>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="ai-actions">
+
+  <button class="ai-btn ask" id="askBtn" onclick="askDoctor()">
+    Ask AI Doctor
+  </button>
+
+  <button class="ai-btn mic-btn" id="micBtn" onclick="startListening()">
+  🎤 Start Listening
+  </button>
+
+  <div class="voice-settings">
+  <label>
+    <input type="radio" name="voiceLang" value="en" checked>
+    🇺🇸 English
+  </label>
+
+  <label>
+    <input type="radio" name="voiceLang" value="hi">
+    🇮🇳 Hindi
+  </label>
+</div>
+
+  <button class="speak-btn" onclick="speakAnswer()">🔊 Speak Answer</button>
+  <button class="stop-btn" onclick="stopSpeaking()">⏹ Stop</button>
+
+
+  <button class="ai-btn emergency" onclick="goToEmergency()">
+    🚨 Emergency Help
+  </button>
+
+</div>
+
+  <!-- RESPONSE -->
+  <div class="ai-response" id="reply">
+    Ask a question to get health guidance.
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="ai-disclaimer">
+    ⚠ This AI Doctor provides health awareness only. It does not replace a certified medical professional.
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+/* ===========================
+   NAVBAR & FOOTER
+   =========================== */
+fetch("navbar.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("nav").innerHTML = h);
+
+fetch("footer.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("footer").innerHTML = h);
+
+/* ===========================
+   DISEASE CONTEXT HANDLING
+   =========================== */
+const badge = document.getElementById("diseaseName");
+const subText = document.getElementById("aiSubText");
+const exampleBox = document.getElementById("exampleBox");
+
+const disease = localStorage.getItem("predictedDisease");
+const fromPrediction = localStorage.getItem("fromPrediction");
+
+if (fromPrediction === "true" && disease) {
+  badge.innerText = "Related Disease: " + disease;
+  badge.style.display = "inline-block";
+
+  subText.innerText =
+    "You can ask questions related to this disease or general health topics.";
+
+  exampleBox.style.display = "none";
+
+  // Clear flag so refresh/direct open doesn't reuse it
+  localStorage.removeItem("fromPrediction");
+} else {
+  badge.style.display = "none";
+  exampleBox.style.display = "block";
+}
+
+/* ===========================
+   HELPERS
+   =========================== */
+function fillQuestion(text) {
+  document.getElementById("question").value = text;
+}
+
+/* ===========================
+   AI DOCTOR CALL
+   =========================== */
+function askDoctor() {
+  const question = document.getElementById("question").value.trim();
+  const replyBox = document.getElementById("reply");
+  const btn = document.getElementById("askBtn");
+
+  if (!question) {
+    alert("Please enter a health-related question.");
+    return;
+  }
+
+  btn.disabled = true;
+  replyBox.innerHTML =
+    "<span class='ai-loading'>🤖 AI Doctor is thinking...</span>";
+
+  fetch("http://127.0.0.1:5000/ai-doctor", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      disease: disease || "",
+      question: question
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    replyBox.innerText = data.reply;
+  })
+  .catch(() => {
+    replyBox.innerText =
+      "AI Doctor service is currently unavailable.";
+  })
+  .finally(() => {
+    btn.disabled = false;
+  });
+}
+
+function goToEmergency() {
+  window.location.href = "emergency.html";
+}
+</script>
+
+</body>
+</html>
+
+<script src="JS/voice.js"></script>

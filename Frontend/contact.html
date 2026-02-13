@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – HeaLNova</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+<script>
+fetch("navbar.html")
+  .then(r => r.text())
+  .then(d => document.getElementById("nav").innerHTML = d);
+</script>
+
+<!-- CONTENT -->
+<div class="auth-container">
+  <h2>📞 Contact Us</h2>
+
+  <p>If you have questions, feedback, or suggestions, feel free to contact us.</p>
+
+  <form onsubmit="return false;">
+    <input type="text" placeholder="" required>
+    <input type="email" placeholder="" required>
+    <textarea placeholder="Your Message" rows="4" style="width:100%;padding:10px;"></textarea>
+
+    <button onclick="submitContact()">Send Message</button>
+  </form>
+
+  <p class="note">
+    📧 Email: support@healnova.com  
+    <br>📍 Location: India
+  </p>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+<script>
+fetch("footer.html")
+  .then(r => r.text())
+  .then(d => document.getElementById("footer").innerHTML = d);
+</script>
+
+<script>
+function submitContact() {
+  alert("✅ Message sent successfully (demo).");
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Prediction Result</title>
+  <link rel="stylesheet" href="CSS/style.css">
+
+  <style>
+    .result-container {
+      max-width: 850px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .result-header h2 {
+      color: #0b5ed7;
+      margin-bottom: 8px;
+    }
+
+    .result-header p {
+      color: #555;
+      font-weight: bold;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 25px;
+    }
+
+    .info-box {
+      background: #f8f9fa;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    .info-box span {
+      display: block;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .info-box b {
+      font-size: 18px;
+      color: #2c3e50;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .badge-ml { background: #e3f2fd; color: #0b5ed7; }
+    .badge-rule { background: #fff3cd; color: #856404; }
+    .badge-overlap { background: #e8f5e9; color: #1b5e20; }
+
+    .actions {
+      margin-top: 35px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .btn-offline { background: #3498db; color: white; }
+    .btn-ai { background: #27ae60; color: white; }
+    .btn-emergency { background: #e53935; color: white; }
+    .btn-save { background: #8e44ad; color: white; }
+    .btn-back { background: #607d8b; color: white; }
+
+    .btn:hover { opacity: 0.9; }
+
+    .disclaimer {
+      margin-top: 30px;
+      background: #ffecec;
+      color: #b00020;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="nav"></div>
+
+<div class="result-container">
+
+  <div class="result-header">
+    <h2>🩺 Disease Prediction Result</h2>
+    <p>Based on selected symptoms</p>
+  </div>
+
+  <div class="info-grid">
+
+    <div class="info-box">
+      <span>Predicted Disease</span>
+      <b id="disease">Loading...</b>
+    </div>
+
+    <div class="info-box">
+      <span>Prediction Type</span>
+      <b id="type">Loading...</b>
+      <span id="typeBadge"></span>
+    </div>
+
+    <div class="info-box">
+      <span>Recommended Specialist</span>
+      <b id="specialist">Loading...</b>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-offline" onclick="goToOfflineDoctor()">📘 Offline Doctor</button>
+    <button class="btn btn-ai" onclick="goToAIDoctor()">🤖 AI Doctor</button>
+    <button class="btn btn-emergency" onclick="goToEmergency()">🚨 Emergency</button>
+    <button class="btn btn-save" onclick="saveToRecords()">💾 Save Record</button>
+    <button class="btn btn-back" onclick="goBack()">⬅ Back</button>
+  </div>
+
+  <div class="disclaimer" id="disclaimer">
+    Loading disclaimer...
+  </div>
+
+</div>
+
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+/* NAV LOAD */
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+
+/* LOAD DATA */
+const disease = localStorage.getItem("predictedDisease");
+const diseaseType = localStorage.getItem("diseaseType");
+const specialist = localStorage.getItem("specialist");
+const disclaimer = localStorage.getItem("disclaimer");
+
+if (!disease) {
+  alert("No prediction found. Please predict again.");
+  window.location.href = "disease_predict.html";
+}
+
+document.getElementById("disease").innerText = disease;
+document.getElementById("specialist").innerText = specialist || "General Physician";
+document.getElementById("disclaimer").innerText =
+  disclaimer || "This system provides health guidance only.";
+
+const typeEl = document.getElementById("type");
+const badgeEl = document.getElementById("typeBadge");
+
+typeEl.innerText = diseaseType || "N/A";
+
+if (diseaseType === "ml") {
+  badgeEl.innerHTML = `<span class="badge badge-ml">ML Prediction</span>`;
+}
+if (diseaseType === "rule_based") {
+  badgeEl.innerHTML = `<span class="badge badge-rule">Rule Based</span>`;
+}
+if (diseaseType === "overlap") {
+  badgeEl.innerHTML = `<span class="badge badge-overlap">Overlap Condition</span>`;
+}
+
+/* NAVIGATION */
+function goToOfflineDoctor() {
+  localStorage.setItem("infoDisease", disease);
+  window.location.href = "disease_info.html";
+}
+
+function goToAIDoctor() {
+  localStorage.setItem("fromPrediction", "true");
+  window.location.href = "ai_doctor.html";
+}
+
+function goToEmergency() {
+  window.location.href = "emergency.html";
+}
+
+function goBack() {
+  window.location.href = "disease_predict.html";
+}
+
+/* SAVE TO HEALTH RECORDS */
+function saveToRecords() {
+
+  const user = JSON.parse(localStorage.getItem("healnova_user"));
+
+  if (!user) {
+    alert("Please login to save disease");
+    return;
+  }
+
+  const userKey = user.email.replace(/[^a-zA-Z0-9]/g, "_");
+  const STORAGE_KEY = `healthRecords_${userKey}`;
+
+  const record = {
+    date: new Date().toLocaleDateString(),
+    disease: disease,
+    type: diseaseType || "N/A",
+    specialist: specialist || "General Physician"
+  };
+
+  let records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+  records.push(record);
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+
+  alert("✅ Disease saved successfully!");
+}
+</script>
+
+</body>
+</html>

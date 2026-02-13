@@ -1,0 +1,27 @@
+<svg
+  width="64"
+  height="64"
+  viewBox="0 0 24 24"
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none">
+
+  <!-- Siren base -->
+  <rect
+    x="6"
+    y="14"
+    width="12"
+    height="4"
+    rx="1"
+    fill="#dc3545"/>
+
+  <!-- Siren light -->
+  <path
+    d="M8 14V10C8 7.8 9.8 6 12 6C14.2 6 16 7.8 16 10V14Z"
+    fill="#ff4d4f"/>
+
+  <!-- Light rays -->
+  <line x1="12" y1="2" x2="12" y2="4" stroke="#ff4d4f" stroke-width="2" stroke-linecap="round"/>
+  <line x1="4" y1="6" x2="6" y2="8" stroke="#ff4d4f" stroke-width="2" stroke-linecap="round"/>
+  <line x1="20" y1="6" x2="18" y2="8" stroke="#ff4d4f" stroke-width="2" stroke-linecap="round"/>
+
+</svg>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Privacy Policy – HeaLNova</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+<script>
+fetch("navbar.html")
+  .then(r => r.text())
+  .then(d => document.getElementById("nav").innerHTML = d);
+</script>
+
+<!-- CONTENT -->
+<div style="
+  max-width:900px;
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+">
+
+  <h2 style="color:#0b5ed7;">🔐 Privacy Policy</h2>
+
+  <p>
+    HeaLNova respects your privacy and is committed to protecting your personal data.
+  </p>
+
+  <h3>📌 Information We Collect</h3>
+  <ul>
+    <li>Symptoms selected by users</li>
+    <li>Health records stored locally in browser</li>
+    <li>No sensitive data is sent to third parties</li>
+  </ul>
+
+  <h3>📌 How Data Is Used</h3>
+  <ul>
+    <li>To provide health awareness</li>
+    <li>To improve user experience</li>
+    <li>To store health records locally (browser storage)</li>
+  </ul>
+
+  <h3>📌 AI & Medical Disclaimer</h3>
+  <p style="color:#b00020;">
+    HeaLNova does NOT provide medical diagnosis or treatment.
+    AI Doctor responses are for awareness only.
+  </p>
+
+  <h3>📌 Data Security</h3>
+  <p>
+    All health records are stored locally on the user's device.
+    HeaLNova does not upload or sell user data.
+  </p>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+<script>
+fetch("footer.html")
+  .then(r => r.text())
+  .then(d => document.getElementById("footer").innerHTML = d);
+</script>
+
+</body>
+</html>

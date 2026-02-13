@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Disease Explorer</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div id="nav"></div>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="explorer-container">
+
+  <h2 class="page-title">
+  <img src="images/icons/explorer.svg" class="title-icon">
+  Disease Explorer
+  </h2>
+
+
+  <!-- CONTROLS -->
+  <div class="explorer-controls">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search disease..."
+      onkeyup="applyFilters()"
+    />
+
+    <select id="categorySelect" onchange="applyFilters()">
+      <option value="all">All Categories</option>
+      <option value="general">General</option>
+      <option value="respiratory">Respiratory</option>
+      <option value="digestive">Digestive</option>
+      <option value="skin">Skin</option>
+      <option value="cardio">Cardio</option>
+      <option value="neurological">Neurological</option>
+    </select>
+
+    <select id="diseaseSelect">
+      <option value="">-- Select Disease --</option>
+    </select>
+  </div>
+
+  <div class="explorer-actions">
+    <button onclick="loadDisease()">View Information</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="content" class="explorer-content"></div>
+
+  <div class="explorer-disclaimer">
+    ⚠ This information is for awareness only and does not replace professional medical advice.
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+/* ================= NAV & FOOTER ================= */
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();   // 🔥 CALL AFTER NAV LOAD
+  });
+
+fetch("footer.html")
+  .then(r => r.text())
+  .then(h => document.getElementById("footer").innerHTML = h);
+
+/* ================= DATA ================= */
+const apiBase = "http://127.0.0.1:5000";
+let allDiseases = [];
+let lastFilteredDiseases = [];
+
+const diseaseCategoryMap = {
+  "Fever": "general",
+  "Cold": "respiratory",
+  "Cough": "respiratory",
+  "Flu": "respiratory",
+  "Sinusitis": "respiratory",
+  "Asthma": "respiratory",
+  "Bronchitis": "respiratory",
+  "Diarrhea": "digestive",
+  "Vomiting": "digestive",
+  "Acidity": "digestive",
+  "Constipation": "digestive",
+  "Skin Allergy": "skin",
+  "Eczema": "skin",
+  "Acne": "skin",
+  "Fungal Infection": "skin",
+  "High BP": "cardio",
+  "Low BP": "cardio",
+  "Chest Pain": "cardio",
+  "Migraine": "neurological",
+  "Headache": "neurological"
+};
+
+/* ================= LOAD ALL DISEASES ================= */
+fetch(`${apiBase}/all-diseases`)
+  .then(res => res.json())
+  .then(data => {
+    allDiseases = data.diseases || [];
+    populateDiseaseSelect(allDiseases);
+  });
+
+function populateDiseaseSelect(list) {
+  const select = document.getElementById("diseaseSelect");
+  select.innerHTML = "<option value=''>-- Select Disease --</option>";
+
+  list.forEach(d => {
+    const opt = document.createElement("option");
+    opt.value = d;
+    opt.textContent = d;
+    select.appendChild(opt);
+  });
+}
+
+/* ================= FILTER LOGIC ================= */
+function applyFilters() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const category = document.getElementById("categorySelect").value;
+
+  let filtered = allDiseases.filter(d =>
+    d.toLowerCase().includes(query)
+  );
+
+  if (category !== "all") {
+    filtered = filtered.filter(d =>
+      diseaseCategoryMap[d] === category
+    );
+  }
+
+  lastFilteredDiseases = filtered;
+  populateDiseaseSelect(filtered);
+
+  // ⭐ Auto-select if only one result
+  if (filtered.length === 1) {
+    document.getElementById("diseaseSelect").value = filtered[0];
+  }
+}
+
+/* ================= HELPERS ================= */
+function toList(text) {
+  if (!text) return "<p>Not available</p>";
+  return "<ul>" + text.split(",").map(i => `<li>${i.trim()}</li>`).join("") + "</ul>";
+}
+
+/* ================= LOAD DISEASE INFO ================= */
+function loadDisease() {
+  let disease = document.getElementById("diseaseSelect").value;
+
+  // ⭐ Fix: auto-pick disease from search
+  if (!disease && lastFilteredDiseases.length === 1) {
+    disease = lastFilteredDiseases[0];
+  }
+
+  if (!disease) {
+    alert("Please search or select a disease.");
+    return;
+  }
+
+  fetch(`${apiBase}/disease-info/${disease}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById("content").innerHTML =
+          "<p>❌ Disease information not found.</p>";
+        return;
+      }
+
+      document.getElementById("content").innerHTML = `
+        <div class="explorer-section"><b>Disease:</b> ${data.disease}</div>
+        <div class="explorer-section"><b>Description:</b><p>${data.description}</p></div>
+        <div class="explorer-section"><b>Symptoms:</b>${toList(data.symptoms)}</div>
+        <div class="explorer-section"><b>Causes:</b>${toList(data.causes)}</div>
+        <div class="explorer-section"><b>Precautions:</b>${toList(data.precautions)}</div>
+        <div class="explorer-section"><b>Medicines:</b>${toList(data.medicines)}</div>
+        <div class="explorer-section"><b>Home Remedies:</b>${toList(data.remedies)}</div>
+      `;
+    })
+    .catch(() => {
+      document.getElementById("content").innerHTML =
+        "<p>⚠ Unable to load disease information.</p>";
+    });
+}
+</script>
+
+</body>
+</html>

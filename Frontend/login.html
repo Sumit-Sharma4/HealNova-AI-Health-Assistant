@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login – HeaLNova</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+
+<!-- LOGIN BOX -->
+<div class="auth-container">
+  <h2>🔐 Login to HeaLNova</h2>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <div class="auth-link">
+    New user? <a href="signup.html">Create account</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script src="JS/ui.js"></script>
+
+<script>
+/* LOAD NAVBAR + FOOTER */
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth(); 
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+
+/* =====================
+   SIMPLE LOCAL LOGIN
+===================== */
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!email || !password) {
+    alert("Please enter email and password");
+    return;
+  }
+
+  //  create user object
+  const user = {
+    name: email.split("@")[0],
+    email: email
+  };
+
+  //  FIXED LINE
+  localStorage.setItem("healnova_user", JSON.stringify(user));
+
+  alert("✅ Login successful");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

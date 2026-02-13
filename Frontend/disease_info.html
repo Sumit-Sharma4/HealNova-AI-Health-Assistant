@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Offline Doctor</title>
+  <link rel="stylesheet" href="CSS/style.css">
+
+  <style>
+    .info-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 35px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .info-title {
+      color: #0b5ed7;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .info-subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+
+    .disease-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      margin-top: 25px;
+      padding: 18px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+
+    .section h3 {
+      margin-bottom: 10px;
+      color: #198754;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    ul {
+      margin-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-emergency {
+      background: #e53935;
+      color: white;
+    }
+
+    .btn-back {
+      background: #607d8b;
+      color: white;
+    }
+
+    .btn-emergency:hover {
+      background: #c62828;
+    }
+
+    .btn-back:hover {
+      background: #546e7a;
+    }
+
+    .disclaimer {
+      margin-top: 30px;
+      padding: 15px;
+      background: #ffecec;
+      color: #b00020;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+
+<div class="info-container">
+
+  <h2 class="info-title">📘 Offline Doctor</h2>
+  <p class="info-subtitle">
+    Disease information from offline medical knowledge database
+  </p>
+
+  <div id="content">Loading disease information...</div>
+
+  <div class="actions">
+    <button class="btn btn-emergency" onclick="goToEmergency()">
+      🚨 Emergency Help
+    </button>
+
+    <button class="btn btn-back" onclick="goBack()">
+      ⬅ Back to Result
+    </button>
+  </div>
+
+  <div class="disclaimer">
+    ⚠ This information is for health awareness only and does NOT replace
+    consultation with a certified medical professional.
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script>
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();   // 🔥 CALL AFTER NAV LOAD
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+<script>
+const diseaseName = localStorage.getItem("infoDisease");
+
+if (!diseaseName) {
+  alert("No disease selected.");
+  window.location.href = "result.html";
+}
+
+function toList(text) {
+  if (!text) return "<p>Not available</p>";
+  return "<ul>" + text.split(",").map(item =>
+    `<li>${item.trim()}</li>`
+  ).join("") + "</ul>";
+}
+
+fetch(`http://127.0.0.1:5000/disease-info/${diseaseName}`)
+  .then(res => res.json())
+  .then(data => {
+
+    if (data.error) {
+      document.getElementById("content").innerHTML =
+        "<p>❌ Disease information not found.</p>";
+      return;
+    }
+
+    document.getElementById("content").innerHTML = `
+      <div class="disease-name">🦠 ${data.disease}</div>
+
+      <div class="section">
+        <h3>📖 Description</h3>
+        <p>${data.description}</p>
+      </div>
+
+      <div class="section">
+        <h3>🧾 Symptoms</h3>
+        ${toList(data.symptoms)}
+      </div>
+
+      <div class="section">
+        <h3>⚠ Causes</h3>
+        ${toList(data.causes)}
+      </div>
+
+      <div class="section">
+        <h3>🛡 Precautions</h3>
+        ${toList(data.precautions)}
+      </div>
+
+      <div class="section">
+        <h3>💊 Medicines (General)</h3>
+        ${toList(data.medicines)}
+      </div>
+
+      <div class="section">
+        <h3>🏠 Home Remedies</h3>
+        ${toList(data.remedies)}
+      </div>
+    `;
+  })
+  .catch(() => {
+    document.getElementById("content").innerHTML =
+      "<p>⚠ Unable to load disease information.</p>";
+  });
+
+function goToEmergency() {
+  window.location.href = "emergency.html";
+}
+
+function goBack() {
+  window.location.href = "result.html";
+}
+</script>
+
+</body>
+</html>

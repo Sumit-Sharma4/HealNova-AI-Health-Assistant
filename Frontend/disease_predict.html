@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeaLNova – Disease Prediction</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="nav"></div>
+
+<!-- MAIN CONTENT -->
+<div class="predict-container">
+  <h2 class="page-title">
+  <img src="images/icons/predict.svg" class="title-icon">
+  Disease Prediction
+</h2>
+
+  <p>Select your symptoms and click <b>Predict Disease</b></p>
+
+  <form id="symptomForm" onsubmit="return false;">
+
+    <div class="symptom-grid">
+      <label class="symptom-item"><input type="checkbox" id="fever"> Fever</label>
+      <label class="symptom-item"><input type="checkbox" id="headache"> Headache</label>
+      <label class="symptom-item"><input type="checkbox" id="cough"> Cough</label>
+      <label class="symptom-item"><input type="checkbox" id="body_pain"> Body Pain</label>
+      <label class="symptom-item"><input type="checkbox" id="stomach_pain"> Stomach Pain</label>
+      <label class="symptom-item"><input type="checkbox" id="diarrhea"> Diarrhea</label>
+      <label class="symptom-item"><input type="checkbox" id="vomiting"> Vomiting</label>
+      <label class="symptom-item"><input type="checkbox" id="sore_throat"> Sore Throat</label>
+      <label class="symptom-item"><input type="checkbox" id="runny_nose"> Runny Nose</label>
+      <label class="symptom-item"><input type="checkbox" id="chest_pain"> Chest Pain</label>
+      <label class="symptom-item"><input type="checkbox" id="short_breath"> Shortness of Breath</label>
+      <label class="symptom-item"><input type="checkbox" id="skin_rash"> Skin Rash</label>
+      <label class="symptom-item"><input type="checkbox" id="itching"> Itching</label>
+      <label class="symptom-item"><input type="checkbox" id="acidity"> Acidity</label>
+      <label class="symptom-item"><input type="checkbox" id="back_pain"> Back Pain</label>
+      <label class="symptom-item"><input type="checkbox" id="joint_pain"> Joint Pain</label>
+      <label class="symptom-item"><input type="checkbox" id="high_bp"> High Blood Pressure</label>
+      <label class="symptom-item"><input type="checkbox" id="low_bp"> Low Blood Pressure</label>
+      <label class="symptom-item"><input type="checkbox" id="fatigue"> Fatigue</label>
+    </div>
+
+    <div class="predict-actions">
+      <button class="predict-btn" type="button" onclick="predictDisease()">
+        Predict Disease
+      </button>
+      <button class="reset-btn" type="reset">
+        Reset
+      </button>
+    </div>
+  </form>
+
+  <div class="predict-note">
+    ⚠ This system provides health guidance only. It does not replace a certified medical professional.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer"></div>
+
+<script src="JS/main.js"></script>
+<script src="JS/ui.js"></script>
+
+<script>
+fetch("navbar.html")
+  .then(res => res.text())
+  .then(html => {
+    document.getElementById("nav").innerHTML = html;
+    initNavbarAuth();   // 🔥 CALL AFTER NAV LOAD
+  });
+
+fetch("footer.html")
+  .then(res => res.text())
+  .then(html => document.getElementById("footer").innerHTML = html);
+</script>
+
+</body>
+</html>
