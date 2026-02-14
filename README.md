@@ -1,4 +1,7 @@
-# <img src="images/healnova-logo.png" alt="HeaLNova Logo"> HeaLNova
+#  <h1>
+  <img src="Frontend/images/healnova-logo.png" width="70" style="vertical-align: middle; margin-right: 12px;" />
+  <span style="font-size: 50px; vertical-align: middle;">HealNova</span>
+  </h1>
 
 > **AI-Powered Hybrid Smart Health Assistant**  
 > Built with Flask + Gemini AI + Machine Learning + Modern Web UI  
@@ -32,6 +35,7 @@ HeaLNova is designed as a **Hybrid Healthcare System**.
 - Offline Doctor (CSV-based disease database)
 - Disease Explorer
 - Health Records
+- Emergency Guidance
 - Login System
 
 ## 🔵 Online Mode (Internet Required)
@@ -48,25 +52,25 @@ This makes HeaLNova usable even in rural or low-network environments.
 # 📸 Screenshots
 
 ## 🏠 Home Page
-![Home](screenshots/home.png)
+![Home](docs/screenshots/home.png)
 
 ## 🦠 Disease Prediction
-![Prediction](screenshots/prediction.png)
+![Prediction](docs/screenshots/prediction.png)
 
 ## 📊 Prediction Result
-![Result](screenshots/result.png)
+![Result](docs/screenshots/result.png)
 
 ## 📘 Offline Doctor
-![Offline Doctor](screenshots/offline-doctor.png)
+![Offline Doctor](docs/screenshots/offline-doctor.png)
 
 ## 🤖 AI Doctor
-![AI Doctor](screenshots/ai-doctor.png)
+![AI Doctor](docs/screenshots/ai-doctor.png)
 
 ## 📋 Health Records
-![Health Records](screenshots/records.png)
+![Health Records](docs/screenshots/records.png)
 
 ## 🚨Emergency Guidance
-![Emergency Guidance](screenshots/emergency.png)
+![Emergency Guidance](docs/screenshots/emergency.png)
 
 ---
 
@@ -87,10 +91,10 @@ This makes HeaLNova usable even in rural or low-network environments.
   - Recommended specialist
 - Save prediction to Health Records
 
-Powered by:
-- Trained ML model (.pkl)
-- Rule-based safety logic
-- Flask backend API
+   Powered by:
+   - Trained ML model (.pkl)
+   - Rule-based safety logic
+   - Flask backend API
 
 ---
 
@@ -231,39 +235,74 @@ This feature provides **awareness guidance only** and encourages users to:
 
 ---
 
-# 📂 Project Structure
+## 📁 Project Structure
 
-HealNova/
-│
-├── Frontend/
-│ ├── index.html
-│ ├── disease_predict.html
-│ ├── result.html
-│ ├── disease_info.html
-│ ├── ai_doctor.html
-│ ├── health_records.html
-│ ├── login.html
-│ ├── signup.html
-│ ├── navbar.html
-│ ├── footer.html
-│ ├── CSS/
-│ ├── JS/
-│ ├── images/
+```
+HealNova-AI-Health-Assistant/
 │
 ├── Backend/
-│ ├── app.py
-│ ├── ML/
-│ │ ├── model.pkl
-│ │ ├── disease_info.csv
-│ ├── utils/
-│ │ ├── ai_gemini.py
-│ ├── requirements.txt
+│   ├── app.py
+│   ├── requirements.txt
+│   ├── users.json
+│   ├── ML/
+│   │   ├── model.pkl
+│   │   ├── ml_predict.py
+│   │   ├── train_model.py
+│   │   ├── disease_info.csv
+│   │   └── symptoms_dataset.csv
+│   └── utils/
+│       └── ai_gemini.py
 │
+├── Frontend/
+│   ├── index.html
+│   ├── disease_predict.html
+│   ├── result.html
+│   ├── ai_doctor.html
+│   ├── disease_explorer.html
+│   ├── disease_info.html
+│   ├── health_records.html
+│   ├── emergency.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── navbar.html
+│   ├── footer.html
+│   ├── about.html
+│   ├── contact.html
+│   ├── privacy.html
+│   ├── terms.html
+│   │
+│   ├── CSS/
+│   │   └── style.css
+│   │
+│   ├── JS/
+│   │   ├── main.js
+│   │   ├── ui.js
+│   │   └── voice.js
+│   │
+│   └── images/
+│       ├── healnova-logo.png
+│       ├── favicon.png
+│       ├── hero-bg.png
+│       └── icons/
+│
+├── docs/
+│   └── screenshots/
+│       ├── home.png
+│       ├── prediction.png
+│       ├── result.png
+│       ├── ai-doctor.png
+│       ├── records.png
+│       ├── emergency.png
+│       └── offline-doctor.png
+│
+├── .gitignore
+├── LICENSE
 └── README.md
+```
 
 ---
 
-## 4️⃣ Run Frontend
+##   Run Frontend
 
 Open `index.html` using Live Server 
 
