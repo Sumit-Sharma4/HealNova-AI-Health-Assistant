@@ -166,7 +166,7 @@ function toList(text) {
   ).join("") + "</ul>";
 }
 
-fetch(`http://127.0.0.1:5000/disease-info/${diseaseName}`)
+fetch(`https://healnova-backend.onrender.com/disease-info/${diseaseName}`)
   .then(res => res.json())
   .then(data => {
 
