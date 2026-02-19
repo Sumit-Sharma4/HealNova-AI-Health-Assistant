@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: healnova-backend
+    env: python
+    plan: free
+    region: singapore
+    rootDir: Backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    pythonVersion: 3.11.9
