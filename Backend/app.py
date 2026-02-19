@@ -1,10 +1,9 @@
+from googletrans import Translator
 from dotenv import load_dotenv
 load_dotenv()
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from googletrans import Translator
-
 import joblib
 import numpy as np
 import pandas as pd
@@ -14,40 +13,19 @@ import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from utils.ai_gemini import ask_ai_doctor
 
-# ==============================
-# APP INITIALIZATION
-# ==============================
-
 app = Flask(__name__)
-CORS(app)   # ⭐ MUST come immediately after app creation
-
 translator = Translator()
-
-# ==============================
-# TRANSLATE ROUTE
-# ==============================
-
 @app.route("/translate", methods=["POST"])
 def translate_text():
+    data = request.json
+    text = data.get("text")
+
     try:
-        data = request.get_json()
-        text = data.get("text", "")
-
-        if not text:
-            return jsonify({"translated": ""})
-
         translated = translator.translate(text, dest="hi")
-
         return jsonify({"translated": translated.text})
-
-    except Exception as e:
-        print("Translation error:", e)
+    except:
         return jsonify({"translated": text})
-        
-
-# ==============================
-# USERS FILE
-# ==============================
+CORS(app)
 
 USERS_FILE = "users.json"
 
