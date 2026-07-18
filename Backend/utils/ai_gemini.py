@@ -13,7 +13,6 @@ def ask_ai_doctor(disease, question):
     if not question:
         return "Please ask a health-related question."
 
-    # 🔒 STRICT but Gemini-friendly prompt
     prompt = f"""
 You are HeaLNova AI Doctor.
 
@@ -71,7 +70,6 @@ This is for health awareness only.
         response = requests.post(url, json=payload, timeout=15)
         data = response.json()
 
-        # 🔍 DEBUG (keep this during development)
         print("Gemini response:", data)
 
         if (
