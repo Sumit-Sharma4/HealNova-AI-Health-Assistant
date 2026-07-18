@@ -44,7 +44,7 @@ function predictDisease() {
     return;
   }
 
-  // 🔄 Send data to backend
+  //  Send data to backend
   fetch("https://healnova-backend.onrender.com/predict", {
     method: "POST",
     headers: {
@@ -61,7 +61,7 @@ function predictDisease() {
       return;
     }
 
-    // ✅ Store full prediction result for result.html
+    //  Store full prediction result for result.html
     localStorage.setItem("predictedDisease", result.predicted_disease);
     localStorage.setItem("diseaseType", result.disease_type);
     localStorage.setItem("specialist", result.specialist);
