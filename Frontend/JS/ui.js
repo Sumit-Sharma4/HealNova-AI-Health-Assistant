@@ -1,6 +1,4 @@
-/* =========================
-   NAVIGATION FUNCTIONS
-   ========================= */
+/* NAVIGATION FUNCTIONS */
 
 function goLogin() {
   window.location.href = "login.html";
@@ -30,9 +28,7 @@ function goEmergency() {
   window.location.href = "emergency.html"; 
 }
 
-/* =========================
-   NAVBAR AUTH LOGIC
-========================= */
+/* NAVBAR AUTH LOGIC */
 
 function initNavbarAuth() {
   const navAuth = document.getElementById("navAuth");
@@ -81,9 +77,7 @@ function logout() {
   window.location.href = "index.html";
 }
 
-/* =========================
-   AUTO-SCROLL FEATURES (HOME)
-   ========================= */
+/*  AUTO-SCROLL FEATURES (HOME) */
 
 document.addEventListener("DOMContentLoaded", () => {
   const features = document.querySelector(".features");
@@ -114,9 +108,7 @@ function goHome() {
   window.location.href = "index.html";
 }
 
-/* =========================
-   AI DOCTOR DAILY LIMIT
-========================= */
+/*  AI DOCTOR DAILY LIMIT */
 
 const AI_LIMIT_PER_DAY = 5;
 
