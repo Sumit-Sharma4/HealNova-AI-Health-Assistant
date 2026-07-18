@@ -5,7 +5,7 @@ body {
   background: #f4f6f8;
 }
 
-/* ================= NAVBAR ================= */
+/*  NAVBAR */
 .navbar {
   background: #4387d4;
   padding: 12px 0;
@@ -74,7 +74,7 @@ body {
   color: white;
 }
 
-/* ================= HERO FIX ================= */
+/*  HERO FIX */
 
 .hero {
   position: relative;
@@ -152,9 +152,7 @@ body {
 
 
 
-/* =========================
-   FEATURES (HORIZONTAL)
-========================= */
+/*FEATURES (HORIZONTAL) */
 .features {
   display: flex;
   gap: 24px;
@@ -235,7 +233,7 @@ body {
   background: #dc3545;
 }
 
-/* ================= AUTH PAGES ================= */
+/*  AUTH PAGES  */
 .auth-container {
   max-width: 400px;
   margin: 80px auto;
@@ -732,9 +730,7 @@ table th {
   cursor: pointer;
 }
 
-/* ======================
-   NAVBAR LAYOUT FIX
-   ====================== */
+/*NAVBAR LAYOUT FIX*/
 
 .navbar {
   display: flex;
@@ -862,9 +858,7 @@ table th {
   display: block;
 }
 
-/* =========================
-   NAVBAR LOGO GLOW EFFECT
-========================= */
+/*NAVBAR LOGO GLOW EFFECT*/
 
 .nav-logo {
   display: flex;
@@ -886,7 +880,7 @@ table th {
   transition: text-shadow 0.3s ease;
 }
 
-/* ✨ GLOW ON HOVER */
+/* GLOW ON HOVER */
 .nav-logo:hover img {
   transform: scale(1.08);
   filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.9));
@@ -918,7 +912,7 @@ table th {
   transition: text-shadow 0.3s ease;
 }
 
-/* ✨ GLOW ON HOVER */
+/*  GLOW ON HOVER */
 .footer-logo:hover img {
   transform: scale(1.08);
   filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.8));
@@ -978,7 +972,7 @@ table th {
 }
 
 
-/* smooth hover animation */
+/* smooth hover animat */
 .feature-card:hover .feature-icon {
   transform: scale(1.1);
 }
@@ -1002,9 +996,7 @@ table th {
   text-align: center;
 }
 
-/* =========================
-   🎤 MIC GLOW ANIMATION
-========================= */
+/*MIC GLOW ANIMATION*/
 
 .mic-btn {
   background: #0b5ed7;
@@ -1030,9 +1022,7 @@ table th {
   }
 }
 
-/* =========================
-   AI VOICE BUTTONS
-========================= */
+/* AI VOICE BUTTONS */
 
 .voice-actions {
   margin-top: 15px;
@@ -1078,9 +1068,7 @@ table th {
 }
 
 
-/* =========================
-   MIC BUTTON (VOICE INPUT)
-========================= */
+/*MIC BUTTON (VOICE INPUT)*/
 
 .mic-btn {
   background: #198754;
@@ -1100,7 +1088,7 @@ table th {
 }
 
 
-/* 🔥 Animated Glow When Listening */
+/*  Animated Glow When Listening */
 .mic-btn.listening {
   animation: micGlow 1.2s infinite;
 }
@@ -1117,9 +1105,7 @@ table th {
   }
 }
 
-/* =========================
-   AI DOCTOR HEADER
-========================= */
+/* AI DOCTOR HEADER */
 
 .ai-header {
   text-align: center;
