@@ -96,9 +96,7 @@
 <script src="JS/ui.js"></script>
 
 <script>
-/* ===========================
-   NAVBAR & FOOTER
-   =========================== */
+/* NAVBAR & FOOTER */
 fetch("navbar.html")
   .then(r => r.text())
   .then(h => document.getElementById("nav").innerHTML = h);
@@ -107,9 +105,7 @@ fetch("footer.html")
   .then(r => r.text())
   .then(h => document.getElementById("footer").innerHTML = h);
 
-/* ===========================
-   DISEASE CONTEXT HANDLING
-   =========================== */
+/* DISEASE CONTEXT HANDLING */
 const badge = document.getElementById("diseaseName");
 const subText = document.getElementById("aiSubText");
 const exampleBox = document.getElementById("exampleBox");
@@ -133,16 +129,12 @@ if (fromPrediction === "true" && disease) {
   exampleBox.style.display = "block";
 }
 
-/* ===========================
-   HELPERS
-   =========================== */
+/* HELPERS */
 function fillQuestion(text) {
   document.getElementById("question").value = text;
 }
 
-/* ===========================
-   AI DOCTOR CALL
-   =========================== */
+/* AI DOCTOR CALL */
 function askDoctor() {
   const question = document.getElementById("question").value.trim();
   const replyBox = document.getElementById("reply");
