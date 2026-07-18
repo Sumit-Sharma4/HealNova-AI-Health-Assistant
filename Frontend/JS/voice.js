@@ -1,6 +1,4 @@
-/* ==================================
-   🎤 VOICE INPUT (Speech → Text)
-================================== */
+/* VOICE INPUT (Speech → Text) */
 
 let recognition;
 let isListening = false;
@@ -51,9 +49,7 @@ function startListening() {
   recognition.start();
 }
 
-/* ==================================
-   🔊 VOICE OUTPUT (Text → Speech)
-================================== */
+/* VOICE OUTPUT (Text → Speech) */
 
 async function speakAnswer() {
   const replyText = document.getElementById("reply").innerText;
@@ -68,7 +64,7 @@ async function speakAnswer() {
 
   let textToSpeak = replyText;
 
-  // 🔥 If Hindi selected → Translate first
+  //  If Hindi selected → Translate first
   if (selectedLang === "hi") {
     textToSpeak = await translateToHindi(replyText);
   }
@@ -99,9 +95,7 @@ async function translateToHindi(text) {
 
 
 
-/* ==================================
-   🔇 STOP (Listening + Speaking)
-================================== */
+/*  STOP (Listening + Speaking) */
 
 function stopVoice() {
 
