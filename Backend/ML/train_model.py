@@ -15,8 +15,8 @@ model = RandomForestClassifier(n_estimators=100, random_state=42)
 # Train model on FULL dataset
 model.fit(X, y)
 
-print("✅ Model trained successfully on full dataset")
+print("Model trained successfully on full dataset")
 
 # Save model
 joblib.dump(model, "model.pkl")
-print("💾 Model saved as model.pkl")
+print("Model saved as model.pkl")
