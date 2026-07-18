@@ -8,28 +8,28 @@
 
 HeaLNova is an intelligent **Hybrid Healthcare Web Application** that provides:
 
-- 🦠 Disease Prediction (Machine Learning + Rule-based hybrid)
-- 🤖 AI Doctor (Gemini-powered)
-- 🎤 Voice Interaction
-- 🌐 Hindi Translation Support
-- 📚 Disease Explorer
-- 📋 Smart Health Records (User-scoped)
-- 🔐 Login System
-- 🚨 Emergency Guidance
+-  Disease Prediction (Machine Learning + Rule-based hybrid)
+-  AI Doctor (Gemini-powered)
+-  Voice Interaction
+-  Hindi Translation Support
+-  Disease Explorer
+-  Smart Health Records (User-scoped)
+-  Login System
+-  Emergency Guidance
 
 
 It works in **both Online and Offline modes**, making it usable even in low-network environments.
 
-⚠️ This project is for educational purposes only.  
+ This project is for educational purposes only.  
 It does NOT replace professional medical advice.
 
 ---
 
-# 🌐 Hybrid Mode (Online + Offline Support)
+#  Hybrid Mode (Online + Offline Support)
 
 HeaLNova is designed as a **Hybrid Healthcare System**.
 
-## 🟢 Offline Mode (No Internet Required)
+##  Offline Mode (No Internet Required)
 
 - Disease Prediction (ML model runs locally)
 - Offline Doctor (CSV-based disease database)
@@ -38,7 +38,7 @@ HeaLNova is designed as a **Hybrid Healthcare System**.
 - Emergency Guidance
 - Login System
 
-## 🔵 Online Mode (Internet Required)
+##  Online Mode (Internet Required)
 
 - AI Doctor (Gemini AI)
 - Hindi Translation
@@ -49,36 +49,36 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-# 📸 Screenshots
+#  Screenshots
 
-## 🏠 Home Page
+##  Home Page
 ![Home](docs/screenshots/home.png)
 
-## 🦠 Disease Prediction
+##  Disease Prediction
 ![Prediction](docs/screenshots/prediction.png)
 
-## 📊 Prediction Result
+##  Prediction Result
 ![Result](docs/screenshots/result.png)
 
-## 📘 Offline Doctor
+##  Offline Doctor
 ![Offline Doctor](docs/screenshots/offline-doctor.png)
 
-## 🤖 AI Doctor
+##  AI Doctor
 ![AI Doctor](docs/screenshots/ai-doctor.png)
 
-## 📋 Health Records
+##  Health Records
 ![Health Records](docs/screenshots/records.png)
 
-## 🚨Emergency Guidance
+## Emergency Guidance
 ![Emergency Guidance](docs/screenshots/emergency.png)
 
 ---
 
-# 🚀 Features (Detailed)
+#  Features (Detailed)
 
 ---
 
-## 🦠 1. Disease Prediction System (ML + Rule Hybrid)
+##  1. Disease Prediction System (ML + Rule Hybrid)
 
 - Select symptoms from structured grid
 - Handles:
@@ -98,7 +98,7 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 📘 2. Offline Doctor (Works Without Internet)
+##  2. Offline Doctor (Works Without Internet)
 
 - Uses local CSV-based disease database
 - No AI required
@@ -112,7 +112,7 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 🤖 3. AI Doctor (Gemini AI Powered)
+##  3. AI Doctor (Gemini AI Powered)
 
 - Ask any health-related question
 - Context-aware if coming from prediction result
@@ -127,15 +127,15 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 🎤 4. Voice Assistant System
+##  4. Voice Assistant System
 
-### 🎙 Voice Input (Speech → Text)
+###  Voice Input (Speech → Text)
 - Click mic button to start listening
 - Animated glow while listening
 - Click again to stop
 - Uses Web Speech API
 
-### 🔊 Voice Output (Text → Speech)
+###  Voice Output (Text → Speech)
 - Click “Speak Answer”
 - Optional Hindi voice toggle
 - Stop button available
@@ -143,7 +143,7 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 🌐 5. Hindi Translation Support
+##  5. Hindi Translation Support
 
 - Toggle Hindi mode
 - Backend translates AI reply
@@ -152,7 +152,7 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 📚 6. Disease Explorer
+##  6. Disease Explorer
 
 - Search diseases
 - Filter by category
@@ -166,7 +166,7 @@ This makes HeaLNova usable even in rural or low-network environments.
 
 ---
 
-## 📋 7. Smart Health Records
+##  7. Smart Health Records
 
 User-specific storage system:
 
@@ -181,11 +181,11 @@ Storage system:
 - Stored in browser localStorage
 - Scoped per user email
 
-⚠ Not encrypted (Educational prototype)
+ Not encrypted (Educational prototype)
 
 ---
 
-## 🚨 8. Emergency Guidance System
+##  8. Emergency Guidance System
 
 HeaLNova includes a dedicated **Emergency Assistance Module** designed for critical health situations.
 
@@ -196,7 +196,7 @@ HeaLNova includes a dedicated **Emergency Assistance Module** designed for criti
 - Clear action steps
 - Emergency hotline display
 
-### ⚠ Important
+###  Important
 
 This feature provides **awareness guidance only** and encourages users to:
 - Contact local emergency services
@@ -204,7 +204,7 @@ This feature provides **awareness guidance only** and encourages users to:
 
 ---
 
-## 🔐 9. Authentication System
+##  9. Authentication System
 
 - Local signup/login system
 - User-based record isolation
@@ -214,7 +214,7 @@ This feature provides **awareness guidance only** and encourages users to:
 
 ---
 
-# 🏗 System Architecture
+#  System Architecture
 
 ## Frontend
 - HTML5
@@ -235,7 +235,7 @@ This feature provides **awareness guidance only** and encourages users to:
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 HealNova-AI-Health-Assistant/
@@ -302,13 +302,13 @@ HealNova-AI-Health-Assistant/
 
 ---
 
-##   Run Frontend
+##   Check Live 
 
-Open `index.html` using Live Server 
+Open `https://healnova-ai.netlify.app`
 
 ---
 
-# 🔐 Security Notes
+#  Security Notes
 
 - Records stored in browser localStorage
 - Not encrypted
@@ -317,7 +317,7 @@ Open `index.html` using Live Server
 
 ---
 
-# 🎯 Problem Statement
+#  Problem Statement
 
 Many people lack reliable healthcare guidance in rural or low-network regions.
 
@@ -333,7 +333,7 @@ into a single smart healthcare assistant.
 
 ---
 
-# 🧠 Future Enhancements
+#  Future Enhancements
 
 - Database-based storage (MongoDB / MySQL)
 - Encrypted medical records
@@ -346,7 +346,7 @@ into a single smart healthcare assistant.
 
 ---
 
-# 👨‍💻 Developed By
+#  Developed By
 
 **Sumit Sharma**  
 B.Tech (CSE)  
