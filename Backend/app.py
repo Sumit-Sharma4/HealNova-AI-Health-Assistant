@@ -29,14 +29,10 @@ CORS(app)
 
 USERS_FILE = "users.json"
 
-# -------------------------------
 # LOAD ML MODEL
-# -------------------------------
 model = joblib.load("ML/model.pkl")
 
-# -------------------------------
 # SYMPTOM ORDER
-# -------------------------------
 SYMPTOM_KEYS = [
     "fever","headache","cough","body_pain","stomach_pain",
     "diarrhea","vomiting","sore_throat","runny_nose",
@@ -44,15 +40,11 @@ SYMPTOM_KEYS = [
     "acidity","back_pain","joint_pain","high_bp","low_bp","fatigue"
 ]
 
-# -------------------------------
 # GEMINI API KEY
-# -------------------------------
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 print("Gemini key loaded:", bool(GEMINI_API_KEY))
 
-# -------------------------------
 # UTIL: LOAD & SAVE USERS
-# -------------------------------
 def load_users():
     if not os.path.exists(USERS_FILE):
         return []
@@ -63,16 +55,12 @@ def save_users(users):
     with open(USERS_FILE, "w") as f:
         json.dump(users, f, indent=2)
 
-# -------------------------------
 # HOME
-# -------------------------------
 @app.route("/")
 def home():
     return "HeaLNova Backend API Running"
 
-# -------------------------------
-# 🔐 SIGNUP
-# -------------------------------
+#  SIGNUP
 @app.route("/signup", methods=["POST"])
 def signup():
     data = request.json or {}
@@ -99,12 +87,10 @@ def signup():
 
     return jsonify({"message": "Signup successful"}), 201
 
-# -------------------------------
-# 🔐 LOGIN
-# -------------------------------
+#  LOGIN
 @app.route("/login", methods=["POST"])
 def login():
-    print("🔥 LOGIN API HIT")
+    print(" LOGIN API HIT")
 
     data = request.json or {}
     email = data.get("email", "").strip().lower()
@@ -126,9 +112,7 @@ def login():
 
     return jsonify({"error": "Invalid email or password"}), 401
 
-# -------------------------------
-# 1️⃣ DISEASE PREDICTION
-# -------------------------------
+# 1️ DISEASE PREDICTION
 @app.route("/predict", methods=["POST"])
 def predict_disease():
     data = request.json or {}
@@ -186,9 +170,8 @@ def predict_disease():
         "disclaimer": "Health guidance only."
     })
 
-# -------------------------------
-# 2️⃣ OFFLINE DISEASE INFO
-# -------------------------------
+# 2️ OFFLINE DISEASE INFO
+
 @app.route("/disease-info/<disease_name>")
 def get_disease_info(disease_name):
     try:
@@ -200,9 +183,8 @@ def get_disease_info(disease_name):
     except Exception as e:
         return jsonify({"error": str(e)})
 
-# -------------------------------
-# 3️⃣ AI DOCTOR
-# -------------------------------
+# 3️ AI DOCTOR
+
 @app.route("/ai-doctor", methods=["POST"])
 def ai_doctor():
     data = request.json or {}
@@ -212,16 +194,13 @@ def ai_doctor():
     )
     return jsonify({"reply": reply})
 
-# -------------------------------
 # ALL DISEASES
-# -------------------------------
+
 @app.route("/all-diseases")
 def all_diseases():
     df = pd.read_csv("ML/disease_info.csv")
     return jsonify({"diseases": df["disease"].dropna().tolist()})
 
-# -------------------------------
 # RUN SERVER
-# -------------------------------
 if __name__ == "__main__":
     app.run(debug=True)
